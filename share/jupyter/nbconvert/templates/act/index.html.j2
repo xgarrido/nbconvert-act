@@ -1,0 +1,46 @@
+{%- extends 'lab/index.html.j2' -%}
+
+{%- block html_head_css -%}
+  {{ super() }}
+  <style>
+    @font-face {
+      font-family: 'Acme';
+      font-style: normal;
+      font-weight: 400;
+      src: url(http://themes.googleusercontent.com/static/fonts/acme/v2/h0STFiiHJJuefGZJAxrSiA.ttf) format('truetype');
+    }
+    h1, h2, h3 {
+      font-family: "Acme", sans-serif
+    }
+    .header {
+      overflow: hidden;
+      background-color: #E5E5E5;
+      color: #696969;
+      {# padding: 20px 10px; #}
+      font-family: "Acme", sans-serif;
+      font-size: 40px;
+    }
+    .logo-container {
+      margin: auto;
+      width: fit-content;
+      float: left;
+    }
+  </style>
+{%- endblock html_head_css -%}
+
+{% block body_header %}
+  <body class="jp-Notebook theme-light" style="padding: 0; margin: 0;">
+  <div class="header">
+    <div class="logo-container">
+      <img style="vertical-align:bottom" width="100px" src="{{resources.base_url}}voila/static/actpol_logo.jpg">
+      {% set nb_title = nb.metadata.get("title", "") or resources["metadata"]["name"] %}
+      <span>{{nb_title}}</span>
+    </div>
+  </div>
+  <div style="padding: 20px; margin: 20px;">
+{% endblock body_header %}
+
+{% block body_footer %}
+  </div>
+  </body>
+{% endblock body_footer %}

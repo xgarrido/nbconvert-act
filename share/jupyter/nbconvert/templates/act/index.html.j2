@@ -16,14 +16,18 @@
       overflow: hidden;
       background-color: #E5E5E5;
       color: #696969;
-      {# padding: 20px 10px; #}
       font-family: "Acme", sans-serif;
       font-size: 40px;
+    }
+    .header p {
+      padding-top: 10px;
     }
     .logo-container {
       margin: auto;
       width: fit-content;
       float: left;
+      padding-top: 10px;
+      padding-right: 10px;
     }
   </style>
 {%- endblock html_head_css -%}
@@ -32,10 +36,13 @@
   <body class="jp-Notebook theme-light" style="padding: 0; margin: 0;">
   <div class="header">
     <div class="logo-container">
-      <img style="vertical-align:bottom" width="100px" src="{{resources.base_url}}voila/static/actpol_logo.jpg">
-      {% set nb_title = nb.metadata.get("title", "") or resources["metadata"]["name"] %}
-      <span>{{nb_title}}</span>
+      {% include 'actpol_logo.svg' %}
     </div>
+    {% set nb_title = nb.metadata.get("title", "") or resources["metadata"]["name"] %}
+    <p>{{nb_title}}</p>
+    {% if "authors" in nb.metadata %}
+      <p style="font-size:50%">{{nb.metadata.authors | join(', ', attribute='name')}}</p>
+    {% endif %}
   </div>
   <div style="padding: 20px; margin: 20px;">
 {% endblock body_header %}

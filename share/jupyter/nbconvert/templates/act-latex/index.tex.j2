@@ -1,0 +1,118 @@
+((* extends 'latex/index.tex.j2' *))
+
+((* block packages *))
+((( super() )))
+\usepackage{tocloft}
+\usepackage{svg}
+((* endblock packages *))
+
+((* block docclass *))
+\documentclass{scrartcl}
+((* endblock docclass *))
+
+((* block definitions *))
+((( super() )))
+
+\ifxetex
+\usepackage{xunicode}
+\setmonofont[Scale=0.9]{Inconsolata}
+\setsansfont[Mapping=tex-text]{Myriad Pro}
+\setromanfont[Mapping=tex-text, Numbers=OldStyle]{Minion Pro}
+\fi
+
+\definecolor{red}{RGB}{221,42,43}
+\definecolor{green}{RGB}{105,182,40}
+\definecolor{blue}{RGB}{0,51,153}
+\definecolor{orange}{RGB}{192,128,64}
+\definecolor{gray}{gray}{0.7}
+\definecolor{bgtitle}{HTML}{E5E5E5}
+\definecolor{fgtitle}{HTML}{696969}
+
+\renewcommand*{\sectionformat}{}
+\renewcommand*{\subsectionformat}{}
+\addtokomafont{section}{\color{fgtitle}}
+\addtokomafont{subsection}{\color{fgtitle}}
+
+\def\numberline#1{}
+\renewcommand{\cftdot}{}
+%% \renewcommand{\cftsecfont}{\bfseries\sffamily}
+%% \renewcommand{\cftsubsecfont}{\sffamily}
+%% \renewcommand{\cftsecpresnum}{\begin{lrbox}{\@tempboxa}}
+%% \renewcommand{\cftsecaftersnum}{\end{lrbox}}
+%% \renewcommand{\cftsubsecpresnum}{\begin{lrbox}{\@tempboxa}}
+%% \renewcommand{\cftsubsecaftersnum}{\end{lrbox}}
+
+((* endblock definitions *))
+
+((* block commands *))
+\hypersetup{
+  xetex,
+  colorlinks=true,
+  urlcolor=blue,
+  filecolor=blue,
+  linkcolor=blue,
+  plainpages=false,
+  pdfpagelabels,
+  bookmarksnumbered,
+  pagebackref
+}
+
+\newwrite\tempfile
+\immediate\openout\tempfile=/tmp/actpol_logo.svg
+\immediate\write\tempfile{
+((* include 'act-latex/actpol_logo.svg' *))
+}
+\immediate\closeout\tempfile
+
+((* endblock commands *))
+
+((* block title *))
+((( super() )))
+\svgpath{/tmp}
+\newcommand{\actlogo}{
+  \resizebox{!}{35mm}{
+    \includesvg{actpol_logo}
+}}
+\makeatletter
+\def\@maketitle{%
+  {%
+    \sffamily
+    \pagecolor{bgtitle}
+    \begin{flushright}
+      \color{fgtitle} \bfseries \huge \@title
+      \large
+      \\[5mm]
+      \parbox[b]{10cm}{%
+        \begin{flushright}
+          \@author
+
+          Last update: \@date
+        \end{flushright}
+      }
+    \end{flushright}
+    \vskip-1cm
+    \actlogo\hfill
+  }
+}
+\makeatother
+
+((* endblock title *))
+
+((* block predoc *))
+\renewcommand{\contentsname}{}
+((* block maketitle *))
+\begin{titlingpage}
+    \maketitle
+    \begin{abstract}
+    ((* if 'abstract' in nb.metadata *))
+    ((( nb.metadata.abstract )))
+    ((* endif *))
+    \end{abstract}
+    {%
+      \hypersetup{linkcolor=black, linktoc=all}\tableofcontents
+    }
+\end{titlingpage}
+\newpage
+\pagecolor{white}
+((* endblock maketitle *))
+((* endblock predoc *))

@@ -1,0 +1,10 @@
+{
+    "base_template": "latex",
+    "preprocessors": {
+        "100-remove-skip-cells": {
+            "type": "nbconvert.preprocessors.tagremove.TagRemovePreprocessor",
+            "remove_cell_tags": ["skip"],
+            "enabled": true
+        }
+    }
+}

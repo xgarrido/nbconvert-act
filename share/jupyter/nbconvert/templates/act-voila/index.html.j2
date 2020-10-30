@@ -29,6 +29,17 @@
       padding-top: 10px;
       padding-right: 10px;
     }
+    {# Overloading spinner css #}
+    #loading {
+      font-family: "Acme", sans-serif
+    }
+    .voila-spinner-color1{
+      fill: #696969;
+    }
+    .voila-spinner-color2{
+      fill: #E5E5E5;
+    }
+
   </style>
 {%- endblock html_head_css -%}
 
@@ -45,9 +56,11 @@
     {% endif %}
   </div>
   <div style="padding: 20px; margin: 20px;">
+  {{ super() }}
 {% endblock body_header %}
 
 {% block body_footer %}
   </div>
   </body>
+  {{ super() }}
 {% endblock body_footer %}
